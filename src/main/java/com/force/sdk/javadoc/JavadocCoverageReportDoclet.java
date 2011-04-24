@@ -72,11 +72,10 @@ public class JavadocCoverageReportDoclet extends Standard {
 
             String coverageOutputDir = readOption(root.options(), "-coverageOutput");
             String propertiesDir = readOption(root.options(), "-propertiesLocation");
-            System.out.println("=====directories: " + coverageOutputDir + " ----- " + propertiesDir);
             verifierStore = new VerifierStore(propertiesDir); 
             ClassProcessor classProcessor = new ClassProcessor(verifierStore, coverageOutputDir);
             OutputUtil.createOutputDirectory(coverageOutputDir);
-            classListOut = OutputUtil.createOutputFile(coverageOutputDir, "ClassList.html");
+            classListOut = OutputUtil.createOutputFile(coverageOutputDir, "index.html");
             
             // iterate over all classes.
             ClassDoc[] classes = root.classes();

@@ -44,7 +44,7 @@ public class ClassProcessor {
             result.setClassErrors(classErrors.size());
             
             OutputUtil.printErrorList(classErrors, writer);
-            
+                        
             MethodDoc[] methods = classDoc.methods();
             ConstructorDoc[] constructors = classDoc.constructors();
             

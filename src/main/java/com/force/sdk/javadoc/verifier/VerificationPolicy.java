@@ -10,13 +10,15 @@ public class VerificationPolicy {
     private boolean privateMethodCommentRequired;
     private boolean classLevelCommentRequired;
     private boolean classAuthorTagRequired;
+    private boolean skipInnerClasses;
     
     private static final String PUB_METHOD_COMMENT_REQ_NAME = "publicMethodCommentRequired";
     private static final String PROT_METHOD_COMMENT_REQ_NAME = "protectedMethodCommentRequired";
     private static final String PRIV_METHOD_COMMENT_REQ_NAME = "privateMethodCommentRequired";
 
     private static final String CLASS_COMMENT_REQ_NAME = "classCommentRequired";
-    private static final String CLASS_AUTHOR_TAG_REQUIRED = "classAuthorTagRequired";
+    private static final String CLASS_AUTHOR_TAG_REQ_NAME = "classAuthorTagRequired";
+    private static final String SKIP_INNER_CLASS_NAME = "skipInnerClasses";
     
     public VerificationPolicy(String name) {
         this.name = name;
@@ -29,10 +31,11 @@ public class VerificationPolicy {
     
     private void init(Properties props) {
         classLevelCommentRequired = isTrue(props.getProperty(CLASS_COMMENT_REQ_NAME));
-        classAuthorTagRequired = isTrue(props.getProperty(CLASS_AUTHOR_TAG_REQUIRED));
+        classAuthorTagRequired = isTrue(props.getProperty(CLASS_AUTHOR_TAG_REQ_NAME));
         publicMethodCommentRequired = isTrue(props.getProperty(PUB_METHOD_COMMENT_REQ_NAME));
         protectedMethodCommentRequired = isTrue(props.getProperty(PROT_METHOD_COMMENT_REQ_NAME));
         privateMethodCommentRequired = isTrue(props.getProperty(PRIV_METHOD_COMMENT_REQ_NAME));
+        skipInnerClasses = isTrue(props.getProperty(SKIP_INNER_CLASS_NAME));
     }
     
     private boolean isTrue(String propertyValue) {
@@ -69,6 +72,9 @@ public class VerificationPolicy {
     }
     public boolean isClassAuthorTagRequired() {
         return classAuthorTagRequired;
+    }
+    public boolean isSkipInnerClasses() {
+        return skipInnerClasses;
     }
     
 }

@@ -15,6 +15,12 @@ public class Verifier {
     
     public List<String> verifyClass(ClassDoc classDoc) {
         List<String> errors = new ArrayList<String>();
+        
+        //check if this is an inner class and if inner classes are being skipped
+        if(isInnerClass(classDoc) && policy.isSkipInnerClasses()) {
+            return errors;
+        }
+        
         if(policy.isClassLevelCommentRequired()) {
             if(classDoc.commentText().isEmpty()) {
                 errors.add("Class level doc is required");
@@ -32,6 +38,12 @@ public class Verifier {
     public List<String> verifyMethod(MethodDoc methodDoc) {
         String commentText = methodDoc.commentText();
         List<String> errors = new ArrayList<String>();
+        
+        //check if this is an inner class and if inner classes are being skipped
+        if(isInnerClass(methodDoc) && policy.isSkipInnerClasses()) {
+            return errors;
+        }
+        
         if(methodDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public methods");
@@ -53,6 +65,12 @@ public class Verifier {
     public List<String> verifyConstructor(ConstructorDoc constructorDoc) {
         String commentText = constructorDoc.commentText();
         List<String> errors = new ArrayList<String>();
+        
+        //check if this is an inner class and if inner classes are being skipped
+        if(isInnerClass(constructorDoc) && policy.isSkipInnerClasses()) {
+            return errors;
+        }       
+        
         if(constructorDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public constructors");
@@ -68,6 +86,15 @@ public class Verifier {
             }            
         }
         return errors;
+    }
+    
+    private boolean isInnerClass(ClassDoc classDoc) {
+        return classDoc.containingClass() != null;
+    }
+    
+    private boolean isInnerClass(ExecutableMemberDoc memberDoc) {
+        ClassDoc classDoc = memberDoc.containingClass();
+        return isInnerClass(classDoc);
     }
     
 }
