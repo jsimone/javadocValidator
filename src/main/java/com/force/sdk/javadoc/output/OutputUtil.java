@@ -3,7 +3,7 @@ package com.force.sdk.javadoc.output;
 import java.io.*;
 import java.util.List;
 
-import com.force.sdk.javadoc.ClassVerificationResult;
+import com.force.sdk.javadoc.VerificationResult;
 import com.sun.javadoc.ClassDoc;
 
 public class OutputUtil {
@@ -89,7 +89,7 @@ public class OutputUtil {
         out("<table><tr><th>Class</th><th>Class Errors</th><th>Method Errors</th><th>Constructor Errors</th></tr>", out);
     }
     
-    public static void printClassTableRow(BufferedWriter out, ClassDoc classDoc, ClassVerificationResult result) throws IOException {
+    public static void printClassTableRow(BufferedWriter out, ClassDoc classDoc, VerificationResult result) throws IOException {
         out("<tr><td><a href='" + classDoc.name() + ".html'>" + classDoc.qualifiedName() + "</a></td>" +
         		"<td>" + result.getClassErrors() + "</td>" +
         		"<td>" + result.getMethodErrors() + "</td>" +

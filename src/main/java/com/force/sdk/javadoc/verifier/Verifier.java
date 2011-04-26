@@ -44,6 +44,11 @@ public class Verifier {
             return errors;
         }
         
+        //do not verify simple getters and setters
+        if(isGetterOrSetter(methodDoc.name())) {
+            return errors;
+        }
+        
         if(methodDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public methods");
@@ -71,6 +76,11 @@ public class Verifier {
             return errors;
         }       
         
+        //do not verify the default constructor or a constructor that was added by the compiler
+        if(constructorDoc.isSynthetic() || constructorDoc.parameters().length == 0) {
+            return errors;
+        }
+        
         if(constructorDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public constructors");
@@ -97,4 +107,7 @@ public class Verifier {
         return isInnerClass(classDoc);
     }
     
+    private boolean isGetterOrSetter(String methodName) {
+        return methodName != null && (methodName.startsWith("get") || methodName.startsWith("set"));
+    }
 }

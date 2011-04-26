@@ -23,14 +23,14 @@ public class ClassProcessor {
         this.outputDirectory = outputDirectory;
     }
     
-    public ClassVerificationResult processClass(ClassDoc classDoc) throws VerificationPolicyException{
+    public VerificationResult processClass(ClassDoc classDoc) throws VerificationPolicyException{
         
         BufferedWriter writer = null;
         
         try {
             String policy = findPolicy(classDoc);
             Verifier verifier = findVerifier(policy);
-            ClassVerificationResult result = new ClassVerificationResult();
+            VerificationResult result = new VerificationResult();
             
             writer = OutputUtil.createOutputFile(outputDirectory, classDoc.name() + ".html");
             

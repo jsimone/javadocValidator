@@ -76,6 +76,7 @@ public class JavadocCoverageReportDoclet extends Standard {
             ClassProcessor classProcessor = new ClassProcessor(verifierStore, coverageOutputDir);
             OutputUtil.createOutputDirectory(coverageOutputDir);
             classListOut = OutputUtil.createOutputFile(coverageOutputDir, "index.html");
+            VerificationResult projectVerificationResult = new VerificationResult();
             
             // iterate over all classes.
             ClassDoc[] classes = root.classes();
@@ -84,10 +85,14 @@ public class JavadocCoverageReportDoclet extends Standard {
             OutputUtil.out("<h1>Classes</h1>", classListOut);
             OutputUtil.printClassTableHeader(classListOut);
             for (int i = 0; i < classes.length; i++) {
-                ClassVerificationResult result = classProcessor.processClass(classes[i]);
+                VerificationResult result = classProcessor.processClass(classes[i]);
+                addVerificationResult(projectVerificationResult, result);
                 OutputUtil.printClassTableRow(classListOut, classes[i], result);
             }
             OutputUtil.printClassTableFooter(classListOut);
+            
+            OutputUtil.out("<h2>Class Summary: </h2>" + projectVerificationResult.toString(), classListOut);
+            
             OutputUtil.printFooter(classListOut);
             
         } catch (IOException e) {
@@ -133,6 +138,13 @@ public class JavadocCoverageReportDoclet extends Standard {
         if (option.equals("-coverageOutput")) { return 2; }
         if (option.equals("-propertiesLocation")) { return 2; }
         return 0;
+    }
+    
+    private void addVerificationResult(VerificationResult projectResult, VerificationResult classResult) {
+        projectResult.setClassErrors(projectResult.getClassErrors() + classResult.getClassErrors());
+        projectResult.setMethodErrors(projectResult.getMethodErrors() + classResult.getMethodErrors());
+        projectResult.setConstructorErrors(projectResult.getConstructorErrors() + classResult.getConstructorErrors());
+        
     }
 
 }
