@@ -8,6 +8,7 @@ public class VerificationPolicy {
     private boolean publicMethodCommentRequired;
     private boolean protectedMethodCommentRequired;
     private boolean privateMethodCommentRequired;
+    private boolean packagePrivateMethodCommentRequired;
     private boolean classLevelCommentRequired;
     private boolean classAuthorTagRequired;
     private boolean skipInnerClasses;
@@ -15,6 +16,7 @@ public class VerificationPolicy {
     private static final String PUB_METHOD_COMMENT_REQ_NAME = "publicMethodCommentRequired";
     private static final String PROT_METHOD_COMMENT_REQ_NAME = "protectedMethodCommentRequired";
     private static final String PRIV_METHOD_COMMENT_REQ_NAME = "privateMethodCommentRequired";
+    private static final String PP_METHOD_COMMENT_REQ_NAME = "packagePrivateMethodCommentRequired";
 
     private static final String CLASS_COMMENT_REQ_NAME = "classCommentRequired";
     private static final String CLASS_AUTHOR_TAG_REQ_NAME = "classAuthorTagRequired";
@@ -35,6 +37,7 @@ public class VerificationPolicy {
         publicMethodCommentRequired = isTrue(props.getProperty(PUB_METHOD_COMMENT_REQ_NAME));
         protectedMethodCommentRequired = isTrue(props.getProperty(PROT_METHOD_COMMENT_REQ_NAME));
         privateMethodCommentRequired = isTrue(props.getProperty(PRIV_METHOD_COMMENT_REQ_NAME));
+        packagePrivateMethodCommentRequired = isTrue(props.getProperty(PP_METHOD_COMMENT_REQ_NAME));
         skipInnerClasses = isTrue(props.getProperty(SKIP_INNER_CLASS_NAME));
     }
     
@@ -75,6 +78,9 @@ public class VerificationPolicy {
     }
     public boolean isSkipInnerClasses() {
         return skipInnerClasses;
+    }
+    public boolean isPackagePrivateMethodCommentRequired() {
+        return packagePrivateMethodCommentRequired;
     }
     
 }

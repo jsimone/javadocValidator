@@ -45,7 +45,7 @@ public class Verifier {
         }
         
         //do not verify simple getters and setters
-        if(isGetterOrSetter(methodDoc.name())) {
+        if(isGetterOrSetter(methodDoc.name()) || isToString(methodDoc.name())) {
             return errors;
         }
         
@@ -62,7 +62,12 @@ public class Verifier {
             if(policy.isPrivateMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on private methods");
             }            
+        } else if(methodDoc.isPackagePrivate()) {
+            if(policy.isPackagePrivateMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
+                errors.add("Comments are requried on package private methods");
+            }              
         }
+        
         return errors;
     }
     
@@ -94,6 +99,10 @@ public class Verifier {
             if(policy.isPrivateMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on private constructors");
             }            
+        } else if(constructorDoc.isPackagePrivate()) {
+            if(policy.isPackagePrivateMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
+                errors.add("Comments are requried on package private constructors");
+            } 
         }
         return errors;
     }
@@ -109,5 +118,9 @@ public class Verifier {
     
     private boolean isGetterOrSetter(String methodName) {
         return methodName != null && (methodName.startsWith("get") || methodName.startsWith("set"));
+    }
+    
+    private boolean isToString(String methodName) {
+        return methodName != null && methodName.startsWith("toString");
     }
 }

@@ -1,6 +1,7 @@
 publicMethodCommentRequired=true
 protectedMethodCommentRequired=true
 privateMethodCommentRequired=true
+packagePrivateMethodCommentRequired=true
 classCommentRequired=true
 classAuthorTagRequired=true
 skipInnerClasses=true
