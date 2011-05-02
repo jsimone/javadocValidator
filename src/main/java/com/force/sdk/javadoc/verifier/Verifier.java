@@ -49,6 +49,11 @@ public class Verifier {
             return errors;
         }
         
+        //check if this is an overriden method and if it should be skipped
+        if(policy.isSkipOverridenMethods() && isOverridenMethod(methodDoc)) {
+            return errors;
+        }
+        
         if(methodDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public methods");
@@ -122,5 +127,15 @@ public class Verifier {
     
     private boolean isToString(String methodName) {
         return methodName != null && methodName.startsWith("toString");
+    }
+    
+    private boolean isOverridenMethod(MethodDoc methodDoc) {
+        AnnotationDesc[] annotations = methodDoc.annotations();
+        for(int i=0; i < annotations.length; i++) {
+            if("Override".equals(annotations[i].annotationType().name())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

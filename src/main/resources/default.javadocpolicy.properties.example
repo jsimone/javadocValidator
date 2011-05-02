@@ -1,7 +1,8 @@
 publicMethodCommentRequired=true
 protectedMethodCommentRequired=true
-privateMethodCommentRequired=true
-packagePrivateMethodCommentRequired=true
+privateMethodCommentRequired=false
+packagePrivateMethodCommentRequired=false
 classCommentRequired=true
 classAuthorTagRequired=true
 skipInnerClasses=true
+skipOverridenMethods=true

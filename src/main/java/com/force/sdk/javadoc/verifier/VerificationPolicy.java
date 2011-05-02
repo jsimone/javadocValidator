@@ -12,6 +12,7 @@ public class VerificationPolicy {
     private boolean classLevelCommentRequired;
     private boolean classAuthorTagRequired;
     private boolean skipInnerClasses;
+    private boolean skipOverridenMethods;
     
     private static final String PUB_METHOD_COMMENT_REQ_NAME = "publicMethodCommentRequired";
     private static final String PROT_METHOD_COMMENT_REQ_NAME = "protectedMethodCommentRequired";
@@ -21,6 +22,7 @@ public class VerificationPolicy {
     private static final String CLASS_COMMENT_REQ_NAME = "classCommentRequired";
     private static final String CLASS_AUTHOR_TAG_REQ_NAME = "classAuthorTagRequired";
     private static final String SKIP_INNER_CLASS_NAME = "skipInnerClasses";
+    private static final String SKIP_OVERRIDEN_METHODS_NAME = "skipOverridenMethods";
     
     public VerificationPolicy(String name) {
         this.name = name;
@@ -39,6 +41,7 @@ public class VerificationPolicy {
         privateMethodCommentRequired = isTrue(props.getProperty(PRIV_METHOD_COMMENT_REQ_NAME));
         packagePrivateMethodCommentRequired = isTrue(props.getProperty(PP_METHOD_COMMENT_REQ_NAME));
         skipInnerClasses = isTrue(props.getProperty(SKIP_INNER_CLASS_NAME));
+        skipOverridenMethods = isTrue(props.getProperty(SKIP_OVERRIDEN_METHODS_NAME));
     }
     
     private boolean isTrue(String propertyValue) {
@@ -81,6 +84,9 @@ public class VerificationPolicy {
     }
     public boolean isPackagePrivateMethodCommentRequired() {
         return packagePrivateMethodCommentRequired;
+    }
+    public boolean isSkipOverridenMethods() {
+        return skipOverridenMethods;
     }
     
 }
