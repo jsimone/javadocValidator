@@ -54,6 +54,11 @@ public class Verifier {
             return errors;
         }
         
+        //skip if the method is a standard enum method
+        if(isStandardEnumMethod(methodDoc)) {
+            return errors;
+        }
+        
         if(methodDoc.isPublic()) {
             if(policy.isPublicMethodCommentRequired() && (commentText == null || commentText.length() == 0)) {
                 errors.add("Comments are requried on public methods");
@@ -135,6 +140,14 @@ public class Verifier {
             if("Override".equals(annotations[i].annotationType().name())) {
                 return true;
             }
+        }
+        return false;
+    }
+    
+    private boolean isStandardEnumMethod(MethodDoc methodDoc) {
+        if(methodDoc.containingClass().isEnum() && 
+                ("values".equals(methodDoc.name()) || "valueOf".equals(methodDoc.name()))) {
+            return true;
         }
         return false;
     }
