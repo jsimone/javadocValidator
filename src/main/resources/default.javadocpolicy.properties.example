@@ -4,5 +4,6 @@ privateMethodCommentRequired=false
 packagePrivateMethodCommentRequired=false
 classCommentRequired=true
 classAuthorTagRequired=true
+classAuthorFormat=[A-Z][\\S]+\\s[A-Z][\\S]+
 skipInnerClasses=true
 skipOverridenMethods=true

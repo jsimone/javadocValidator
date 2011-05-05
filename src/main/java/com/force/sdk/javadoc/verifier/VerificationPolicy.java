@@ -13,6 +13,7 @@ public class VerificationPolicy {
     private boolean classAuthorTagRequired;
     private boolean skipInnerClasses;
     private boolean skipOverridenMethods;
+    private String authorTagFormat;
     
     private static final String PUB_METHOD_COMMENT_REQ_NAME = "publicMethodCommentRequired";
     private static final String PROT_METHOD_COMMENT_REQ_NAME = "protectedMethodCommentRequired";
@@ -21,6 +22,7 @@ public class VerificationPolicy {
 
     private static final String CLASS_COMMENT_REQ_NAME = "classCommentRequired";
     private static final String CLASS_AUTHOR_TAG_REQ_NAME = "classAuthorTagRequired";
+    private static final String CLASS_AUTHOR_TAG_FORMAT = "classAuthorFormat";
     private static final String SKIP_INNER_CLASS_NAME = "skipInnerClasses";
     private static final String SKIP_OVERRIDEN_METHODS_NAME = "skipOverridenMethods";
     
@@ -42,6 +44,7 @@ public class VerificationPolicy {
         packagePrivateMethodCommentRequired = isTrue(props.getProperty(PP_METHOD_COMMENT_REQ_NAME));
         skipInnerClasses = isTrue(props.getProperty(SKIP_INNER_CLASS_NAME));
         skipOverridenMethods = isTrue(props.getProperty(SKIP_OVERRIDEN_METHODS_NAME));
+        authorTagFormat = props.getProperty(CLASS_AUTHOR_TAG_FORMAT);
     }
     
     private boolean isTrue(String propertyValue) {
@@ -87,6 +90,12 @@ public class VerificationPolicy {
     }
     public boolean isSkipOverridenMethods() {
         return skipOverridenMethods;
+    }
+    public String getAuthorTagFormat() {
+        return authorTagFormat;
+    }
+    public void setAuthorTagFormat(String authorTagFormat) {
+        this.authorTagFormat = authorTagFormat;
     }
     
 }

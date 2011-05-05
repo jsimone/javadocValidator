@@ -28,8 +28,17 @@ public class Verifier {
         }
         
         Tag[] authorTags = classDoc.tags("author");
-        if(policy.isClassAuthorTagRequired() && (authorTags == null || authorTags.length == 0)) {
-            errors.add("Author tag is required");
+        if(policy.isClassAuthorTagRequired()) {
+            if(authorTags == null || authorTags.length == 0) {
+                errors.add("Author tag is required");
+            } else {
+                for(int i = 0; i < authorTags.length; i++) {
+                    if(!authorTags[i].text().matches(policy.getAuthorTagFormat())) {
+                        errors.add("Author tag: " + authorTags[i].text() + " does not match the author tag format: " + policy.getAuthorTagFormat());
+                    }
+                }
+            }
+                
         }
         
         return errors;
